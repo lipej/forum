@@ -1,7 +1,7 @@
 package codes.lipe.forum.domain.services
 
-import codes.lipe.forum.domain.dto.CreateUserDTO
-import codes.lipe.forum.domain.dto.UpdateUserDTO
+import codes.lipe.forum.domain.dto.user.CreateUserDTO
+import codes.lipe.forum.domain.dto.user.UpdateUserDTO
 import codes.lipe.forum.domain.entities.user.User
 import codes.lipe.forum.infra.repositories.memory.UserRepository
 import org.springframework.stereotype.Service
@@ -16,8 +16,9 @@ class UserService(private val userRepo: UserRepository) {
         return userRepo.create(
             User(
             name = dto.name,
-            mail = dto.mail
-        )
+            mail = dto.mail,
+            password = dto.password
+            )
         )
     }
 

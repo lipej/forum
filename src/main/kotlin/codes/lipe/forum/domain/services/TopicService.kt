@@ -1,6 +1,6 @@
 package codes.lipe.forum.domain.services
 
-import codes.lipe.forum.domain.dto.CreateTopicDTO
+import codes.lipe.forum.domain.dto.topic.CreateTopicDTO
 import codes.lipe.forum.domain.entities.topic.Topic
 import codes.lipe.forum.infra.repositories.memory.*
 import org.springframework.stereotype.Service
@@ -20,17 +20,15 @@ class TopicService(
         return topicRepo.findById(id)
     }
 
-    fun create(dto: CreateTopicDTO) {
+    fun create(dto: CreateTopicDTO, courseId: String): Topic {
         val user = userRepo.findById(dto.userId)
-        val course = courseRepo.findById(dto.courseId)
+        val course = courseRepo.findById(courseId)
 
-        topicRepo.create(
-            Topic(
+        return topicRepo.create(Topic(
             title = dto.title,
             message = dto.message,
             createdBy = user,
             course = course
-        )
-        )
+        ))
     }
 }
