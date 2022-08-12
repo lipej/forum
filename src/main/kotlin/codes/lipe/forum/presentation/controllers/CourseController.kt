@@ -1,7 +1,8 @@
 package codes.lipe.forum.presentation.controllers
 
-import codes.lipe.forum.domain.dto.*
-import codes.lipe.forum.domain.entities.course.Course
+import codes.lipe.forum.domain.dto.course.CreateCourseDTO
+import codes.lipe.forum.domain.dto.course.ResponseCourseDTO
+import codes.lipe.forum.domain.dto.course.UpdateCourseDTO
 import codes.lipe.forum.domain.services.CourseService
 import org.springframework.web.bind.annotation.*
 
@@ -9,18 +10,18 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/courses")
 class CourseController(private val courseService: CourseService) {
     @GetMapping
-    fun list(): List<Course> {
-        return courseService.list()
+    fun list(): List<ResponseCourseDTO> {
+        return courseService.list().map { ResponseCourseDTO(it) }
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): Course {
-        return courseService.get(id)
+    fun get(@PathVariable id: String): ResponseCourseDTO {
+        return ResponseCourseDTO(courseService.get(id))
     }
 
     @PostMapping
-    fun create(@RequestBody topic: CreateCourseDTO) {
-        courseService.create(topic)
+    fun create(@RequestBody topic: CreateCourseDTO): ResponseCourseDTO {
+        return ResponseCourseDTO(courseService.create(topic))
     }
 
     @DeleteMapping("/{id}")
@@ -29,7 +30,7 @@ class CourseController(private val courseService: CourseService) {
     }
 
     @PutMapping("/{id}")
-    fun update(@RequestBody args: UpdateCourseDTO, @PathVariable id: String) {
-        courseService.update(id, args)
+    fun update(@RequestBody args: UpdateCourseDTO, @PathVariable id: String): ResponseCourseDTO {
+        return ResponseCourseDTO(courseService.update(id, args))
     }
 }
