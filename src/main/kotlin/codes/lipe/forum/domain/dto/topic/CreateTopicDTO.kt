@@ -1,8 +1,7 @@
-package codes.lipe.forum.domain.dto
+package codes.lipe.forum.domain.dto.topic
 
 data class CreateTopicDTO(
     val title: String,
     val message: String,
-    val courseId: String,
     val userId: String
 )
