@@ -2,6 +2,7 @@ package codes.lipe.forum.presentation.controllers
 
 import codes.lipe.forum.domain.dto.topic.BasicResponseTopicDTO
 import codes.lipe.forum.domain.dto.topic.CreateTopicDTO
+import codes.lipe.forum.domain.dto.topic.ResponseTopicDTO
 import codes.lipe.forum.domain.entities.topic.Topic
 import codes.lipe.forum.domain.services.TopicService
 import org.springframework.web.bind.annotation.*
@@ -16,8 +17,8 @@ class TopicController(private val topicService: TopicService) {
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): Topic {
-        return topicService.get(id)
+    fun get(@PathVariable id: String): ResponseTopicDTO {
+        return ResponseTopicDTO(topicService.get(id))
     }
 
     @PostMapping("/{courseId}")
